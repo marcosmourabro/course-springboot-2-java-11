@@ -1,5 +1,7 @@
 package com.educandoweb.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -10,31 +12,30 @@ import java.util.Objects;
 public class Order implements Serializable {
     private static final long serialVersionUID= 1l;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING,pattern = "YYYY-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
     @ManyToOne
     @JoinColumn(name="client_id")
     private User client;
 
-    private Order(){
-
+    public Order(){
     }
-
-    public Order(long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, User client) {
         this.id = id;
         this.moment = moment;
         this.client = client;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
