@@ -2,6 +2,7 @@ package com.educandoweb.course.entities;
 
 import com.educandoweb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.sql.ordering.antlr.OrderingSpecification;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -89,7 +90,13 @@ public class Order implements Serializable {
         this.payment = payment;
     }
 
-
+    public Double getTotal(){
+        double sum = 0.0;
+        for(OrderItem x : items){
+            sum+= x.getSubTotal();
+        }
+        return sum;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
